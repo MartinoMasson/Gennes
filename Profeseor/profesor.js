@@ -251,8 +251,14 @@ document.addEventListener("DOMContentLoaded", function() {
       })
     })
 })
-function limpiarFormulario(id) {
-    document.getElementById(id).reset(); // Esto restablecerá todos los campos del formulario a sus valores iniciales
+function limpiarFormulario() {
+    document.getElementById('nuevoalumno-Form').reset(); // Esto restablecerá todos los campos del formulario a sus valores iniciales
+    document.getElementById('newlunes-horario').disabled=true;
+    document.getElementById('newmartes-horario').disabled=true;
+    document.getElementById('newmiercoles-horario').disabled=true;
+    document.getElementById('newjueves-horario').disabled=true;
+    document.getElementById('newviernes-horario').disabled=true;
+
 }
 
 //Ejercicios

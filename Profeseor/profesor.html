@@ -69,7 +69,7 @@
             <form class="nuevoalumno-form" id="nuevoalumno-Form">
                 <div class="input-group">
                         <label for="name">Nombre Completo<span class="obligacion">*</span></label>
-                        <input type="name" id="newnombre" v-model="newnombre" name="newnombre" placeholder="Ingrese el Nombre completo" required>
+                        <input type="text" id="newnombre" v-model="newnombre" name="newnombre" placeholder="Ingrese el Nombre completo" required>
                         <span v-show="mensaje_nombre">{{mensaje_newalumno_nom}}</span>
                 </div>
                 <div class="input-group">
@@ -129,7 +129,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn_agregaralumno" @click="agregarAlumno" onclick="limpiarFormulario('nuevoalumno-Form')"  id="Agregar_Alumno" type="button" >Agregar</button>
+                <button class="btn_agregaralumno" @click="agregarAlumno" onclick="limpiarFormulario()"  id="Agregar_Alumno" type="button" >Agregar</button>
             </form>
         </div>
         <div class="ver-alumno" v-show="verAlumno">

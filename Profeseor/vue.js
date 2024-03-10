@@ -81,6 +81,8 @@ const menu = createApp({
             if(this.newnombre.trim() !== '' && this.newsexo.trim() !== ''){
                 NuevoAlumno()
                 this.monstrarListaAlumnos();
+                this.newnombre = '';
+                this.newsexo = '';
             }else{
                 if(this.newnombre.trim() === ''){
                     this.mensaje_newalumno_nom='Ingrese el Nombre Completo';
