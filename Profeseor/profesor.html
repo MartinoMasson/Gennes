@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gennes</title>
+    <link rel="icon" href="../public/favicon.ico">
+    <link rel="stylesheet" href="../CSS/estilo.css">
+    <link rel="stylesheet" href="../CSS/profesor.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="module" src="vue.js"></script>
+</head>
+
+<body id="opcionesmenu">
+    <header id="header"><a class="titulo" @click="monstrarAgenda">Gennes</a></header>
+    <menu class="menuprofe" id="menuProfe">
+        <button type="button" @click="monstrarListaAlumnos">Alumno</button>
+        <button type="button" @click="monstrarNuevoAlumno">Agregar Alumno</button>
+        <button type="button" @click="monstrarEjercicios">Ejercicios</button>
+        <button type="button" @click="monstrarAgenda">Agenda</button>
+    </menu>
+    <div class="fondo" >
+        <div class="agenda" v-show="verAgenda">
+            <h2>Mi Agenda</h2>
+            <div class="agendacontenedor" id="agenda">
+            </div>
+        </div>
+        <div class="listaalumnos" v-show="verListaAlumnos">
+            <h2>Alumnos</h2>
+            <input type="text" id="buscador" placeholder="Buscar por nombre">
+            <div id="listaAlumnos" class="listadoAlumnos"></div>
+        </div>
+        <div class="ejercicios" id="ejercicios" v-show="verEjercicios">
+            <h2>Ejercicios</h2>
+            <div v-show="verGrupos" class="tipo-ejercicio" id="tipo-ejercicio">
+                <div id="grupos_musculares">
+                </div>
+                <button type="button" @click="mostrarAgregarEjercicios">Agregar Ejercicios</button>
+            </div>
+            <div v-show="verListaEjercicios" class="ejercicios_x_grupo" id="ejercicios_x_grupo">
+                <span class="volver-ejercicios" @click="ocultarEjercicios">×</span>
+                <input type="text"  placeholder="Buscar &#128269;">
+                <div id="lista_ejercicios" class="lista_ejercicios">
+                </div>
+            </div>
+            <div v-if="verAgregar" class="agregar-ejercicios" id="agregar-ejercicios">
+                <form action="new_ejercicio">
+                    <h2>Nuevo ejercicios</h2>
+                    <span @click="ocultarAgregarEjercicios" class="volver">×</span>
+                    <div class="input-group">
+                        <label for="name">Grupo Muscular <span class="obligacion">*</span></label>
+                        <input type="name" id="newgrupo_muscular" v-model="newgrupo_muscular" name="newgrupo_muscular" placeholder="Ingrese el Grupo Muscular" required>
+                        <span v-show="mensaje_grupo_muscular">{{mensaje_newgrupo_muscular}}</span>
+                    </div>
+                    <div class="input-group">
+                        <label for="name">Ejercicios <span class="obligacion">*</span></label>
+                        <input type="name" id="newnombre_ejercicio" v-model="newnombre_ejercicio" name="newnombre_ejercicio" placeholder="Ingrese el Ejercicios" required>
+                        <span v-show="mensaje_ejercicio">{{mensaje_newnombre_ejercicio}}</span>
+                    </div>
+                    <div class="input-group">
+                        <label for="name">Url</label>
+                        <input type="name" id="newurl" name="newurl" placeholder="Ingrese el Url del video">
+                    </div>
+                    <button type="button" @click="AgregarEjercicios" >Guardar Ejercicios</button>
+                </form>
+            </div>
+        </div>
+        <div class="nuevoalumno" v-show="verNuevoAlumno">
+            <h2>Nuevo Alumno</h2>
+            <form class="nuevoalumno-form" id="nuevoalumno-Form">
+                <div class="input-group">
+                        <label for="name">Nombre Completo<span class="obligacion">*</span></label>
+                        <input type="name" id="newnombre" v-model="newnombre" name="newnombre" placeholder="Ingrese el Nombre completo" required>
+                        <span v-show="mensaje_nombre">{{mensaje_newalumno_nom}}</span>
+                </div>
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="newemail" name="newemail" placeholder="Ingrese el Email" required>
+                </div>
+                <div class="input-group">
+                        <label for="tel">Telefono</label>
+                        <input type="tel" id="newtelefono" name="newtelefono" placeholder="Ingrese  el Telefono" required>
+                </div>
+                <div class="input-group">
+                    <label for="tel">Telefono de emergencia</label>
+                    <input type="tel" id="newtelefono-emergencia" name="newtelefonoemergencia" placeholder="Ingrese el Telefono" required>
+                </div>
+                <div class="input-group">
+                        <label for="radio">Sexo<span class="obligacion">*</span></label>
+                        <div class="tiposexo">
+                            <input type="radio" id="masculino" name="sexo" v-model="newsexo" value="Masculino"  required>
+                            <label for="Masculino">Masculino</label><br>
+                            <input type="radio" id="femenino" name="sexo" v-model="newsexo" value="Femenino" required>
+                            <label for="Femenino">Femenino</label><br>
+                            <input type="radio" id="sinespecificar" name="sexo" v-model="newsexo" value="Sin especificar" required>
+                            <label for="SinEspecificar">Sin especificar</label><br>
+                        </div>
+                        <span v-show="mensaje_sexo">{{mensaje_newalumno_sexo}}</span>
+                </div>
+                <div class="input-group">
+                    <label for="number">Edad</label>
+                    <input type="number" id="newedad" name="newedad" placeholder="Edad" min="0" required>
+                </div>
+                <div class="input-group ">
+                    <label for="textarea">Hitorial Clinico</label>
+                    <textarea name="historialclinico" id="newhist_clinico" cols="80" rows="5"></textarea>
+                </div>
+                <div class="input-group entrenamiento">
+                    <label>Dias de Entrenamiento</label>
+                    <div class="semana">
+                        <div>
+                            <label for="Lunes" ><input type="checkbox" id="newLunes" value="Lunes" /> Lunes</label>
+                            <label for="time"><input type="time" id="newlunes-horario" name="lunes-horario" value="06:00" min="06:00" max="21:00" disabled></label>
+                        </div>
+                        <div>
+                            <label for="Martes"><input type="checkbox" id="newMartes" value="Martes" /> Martes</label>
+                            <label for="timer"><input type="time" id="newmartes-horario" name="martes-horario" value="06:00" min="06:00" max="21:00" disabled></label>
+                        </div>
+                        <div>
+                            <label for="Miercoles"><input type="checkbox" id="newMiercoles" value="Miercoles" /> Miercoles</label>
+                            <label for="time"><input type="time" id="newmiercoles-horario" name="miercoles-horario" value="06:00" min="06:00" max="21:00" disabled></label>
+                        </div>
+                        <div>
+                            <label for="Jueves"><input type="checkbox" id="newJueves" value="Jueves" /> Jueves</label>
+                            <label for="time"><input type="time" id="newjueves-horario" name="jueves-horario" value="06:00" min="06:00" max="21:00" disabled></label>
+                        </div>
+                        <div>
+                            <label for="Viernes"><input type="checkbox" id="newViernes" value="Viernes" /> viernes</label>
+                            <label for="time"><input type="time" id="newviernes-horario" name="viernes-horario" value="06:00" min="06:00" max="21:00" disabled></label>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn_agregaralumno" @click="agregarAlumno"  id="Agregar_Alumno" type="button" >Agregar</button>
+            </form>
+        </div>
+        <div class="ver-alumno" v-show="verAlumno">
+            <div class="datos-principales">
+                <h3 id="nombre-alumno"></h3>
+                <div>
+                    <p id="sexo_alumno"></p>
+                    <label type="number">Edad: <input title="" min="5" type="number" name="edad" id="edad-alumno" readonly> Años</label>
+                    <label type="number">Peso: <input title=""  min="0" type="number" name="peso" id="peso-alumno" readonly> Kg</label>
+                    <label type="number">Altura: <input title=""  min="0" type="number" name="altura"  id="altura-alumno" readonly> Cm</label>
+                    <label type="number">Masa Muscular: <input title=""  type="number" min="0" name="masa"  id="masa_muscular-alumno" readonly>%</label>
+                    <label type="number">Grasa corporal: <input title=""  type="number" min="0" name="grasa"  id="grasa_corporal-alumno" readonly>%</label>
+                </div>
+                <a type="button" id="editardatos" onclick="habilitarInputs()">Editar</a>
+                <a type="button" id="guardardatos" onclick="deshabilitarInputs()">Guardar</a>
+            </div>
+            <div class="datos-secundarios">
+                <h3>Datos Personales</h3>
+                <label for="email">Email</label>
+                <div class="editorinput">            
+                    <input title="Email "  type="email" title="Email" id="email_alumno" readonly >
+                </div>
+                <label for="number">Telefono</label>
+                <div class="editorinput">
+                    <input title="Telefono"  type="number" id="telefono_alumno" readonly>
+                    <button type="button" title="btn-whatsapp"  class="whatsapp-btn" onclick="abrirWhatsApp(document.getElementById('telefono_alumno').value)"><img src="../CSS/iconos/icons8-whatsapp-50.png" alt=""></button>
+                </div>
+                <label for="number">Telefono de emergencia</label>
+                <div class="editorinput">
+                    <input title="Telefono-emergencia"  type="number" id="telefono_emergencia_alumno" readonly>
+                    <button  class="whatsapp-btn" title="btn-whatsapp-emergencia" onclick="abrirWhatsApp(document.getElementById('telefono_emergencia_alumno').value)"><img src="../CSS/iconos/icons8-whatsapp-50.png" alt=""></button>
+                </div>
+                <label for="textarea">Hitorial Clinico</label>
+                <textarea name="historialclinico" placeholder="hist_clinico" id="hist_clinico" cols="60" rows="5" readonly></textarea>
+                <label>Dias de Entrenamiento</label>
+                    <div class="diaentrenamiento">
+                        <div>
+                            <label for="Lunes" ><input title="lunes"  type="checkbox" id="Lunes" value="Lunes" disabled /> Lunes</label>
+                            <label for="time"><input title="time-lunes"  type="time"  id="lunes-horario" name="lunes-horario" value="06:00" min="06:00" max="21:00" disabled></label>
+                        </div>
+                        <div>
+                            <label for="Martes"><input title="martes"  type="checkbox" id="Martes" value="Martes" disabled/> Martes</label>
+                            <label for="timer"><input title="time-martes"  type="time" id="martes-horario" name="martes-horario" value="06:00" min="06:00" max="21:00" disabled></label>
+                        </div>
+                        <div>
+                            <label for="Miercoles"><input title="miercoles"  type="checkbox" id="Miercoles" value="Miercoles" disabled/> Miercoles</label>
+                            <label for="time"><input title="time-miercoles"  type="time" id="miercoles-horario" name="miercoles-horario" value="06:00" min="06:00" max="21:00" disabled></label>
+                        </div>
+                        <div>
+                            <label for="Jueves"><input title="jueves"  type="checkbox" id="Jueves" value="Jueves" disabled/> Jueves</label>
+                            <label for="time"><input title="time-jueves"  type="time" id="jueves-horario" name="jueves-horario" value="06:00" min="06:00" max="21:00" disabled></label>
+                        </div>
+                        <div>
+                            <label for="Viernes"><input title="viernes"  type="checkbox" id="Viernes" value="Viernes" disabled/> viernes</label>
+                            <label for="time"><input title="time-viernes"  type="time" id="viernes-horario" name="viernes-horario" value="06:00" min="06:00" max="21:00" disabled></label>
+                        </div>
+                    </div>
+            </div>
+            <div class="btn-rutina">
+                <a onclick="abrir_nuevarutina()">Agregar Rutina</a>
+                <a href="Ver Rutina.html">ver Rituna</a>
+                <a href="">Modificar Rutina</a>
+                <a id="eliminar_alumno">Eliminar Alumno</a>
+            </div>
+        </div>
+        <div v-show="verRutina">
+            <div v-show="Rutina" class="ver-rutina">
+                <button type="button" @click="mostrarNuevaRutina">Agregar Rutina</button>
+            </div>
+            <div class="nueva_rutina" v-show="verNuevaRutina" id="nueva_rutina">
+                <h2>Nueva Rutina</h2>
+                <form action="nueva_rutina">
+                    <label for="number">Plan para <input type="number" min="0" value="0" id="plan_semanas"> Semanas<span class="obligacion">*</span></label>
+                    <div class="ejercicio_dia">
+                        <div id="bloque_lunes">
+                            <label for="Lunes" ><input type="checkbox" id="newRutinaLunes" value="Lunes" onchange="habilitarBoton('newRutinaLunes', 'botonLunes')" /> Lunes</label>
+                            <button type="button" id="botonLunes" onclick="agregarbloque('bloque_lunes','botonLunes',1)" disabled>Agregar Bloque</button>
+                        </div>
+                    
+                        <div id="bloque_martes">
+                            <label for="Martes"><input type="checkbox" id="newRutinaMartes" value="Martes" onchange="habilitarBoton('newRutinaMartes', 'botonMartes')" /> Martes</label>
+                            <button type="button" id="botonMartes" onclick="agregarbloque('bloque_martes','botonMartes',2)" disabled>Agregar Bloque</button>
+                        </div>
+                    
+                        <div id="bloque_miercoles">
+                            <label for="Miercoles"><input type="checkbox" id="newRutinaMiercoles" value="Miercoles" onchange="habilitarBoton('newRutinaMiercoles', 'botonMiercoles')" /> Miercoles</label>
+                            <button type="button" id="botonMiercoles" onclick="agregarbloque('bloque_miercoles','botonMiercoles',3)" disabled>Agregar Bloque</button>
+                        </div>
+                    
+                        <div id="bloque_jueves">
+                            <label for="Jueves"><input type="checkbox" id="newRutinaJueves" value="Jueves" onchange="habilitarBoton('newRutinaJueves', 'botonJueves')" /> Jueves</label>
+                            <button type="button" id="botonJueves" onclick="agregarbloque('bloque_jueves','botonJueves',4)" disabled>Agregar Bloque</button>
+                        </div>
+                    
+                        <div id="bloque_viernes">
+                            <label for="Viernes"><input type="checkbox" id="newRutinaViernes" value="Viernes" onchange="habilitarBoton('newRutinaViernes', 'botonViernes')" /> viernes</label>
+                            <button type="button" id="botonViernes" onclick="agregarbloque('bloque_viernes','botonViernes',5)" disabled>Agregar Bloque</button>
+                        </div>
+                    </div>
+                    <button type="button" class="guardar_rutina" @click="ocultarNuevaRutina">Gruardar Rutina</button>
+                </form>
+            </div>
+            <div class="agregarejercicios" v-show="agregarEjercicios" id="nuevo_ejercicios">
+                <div class="tiposejercicios" id="contenedor-grupos">
+                    <span onclick="Agregar_ejercicios()">×</span>
+                    <div id="tiposejercicios"></div>
+                </div>
+                <div class="rutina-lista_ejercicios" id="listado-ejercicios">
+                    <span onclick="ver_ejercicios()">×</span>
+                    <input type="text" id="buscador-ejercicios"  placeholder="Buscar &#128269;">
+                    <div id="newRutina_lista_ejercicios" class="lista_ejercicios"></div>
+                </div>    
+            </div>
+        </div>
+    </div>
+    <footer>
+        <a href="https://www.instagram.com/matu_masson/"  rel="noopener" target="_blank">Martino Masson</a>
+    </footer>
+
+    
+    <script src="../Modells/modelos.js"></script>
+    <script src="profesor.js"></script>
+</body>
+</html>
