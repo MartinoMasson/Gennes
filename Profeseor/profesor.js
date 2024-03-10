@@ -251,6 +251,9 @@ document.addEventListener("DOMContentLoaded", function() {
       })
     })
 })
+function limpiarFormulario(id) {
+    document.getElementById(id).reset(); // Esto restablecerá todos los campos del formulario a sus valores iniciales
+}
 
 //Ejercicios
 function LlenarGrupoMusculares(menu){
