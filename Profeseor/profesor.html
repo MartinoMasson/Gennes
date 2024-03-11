@@ -76,14 +76,11 @@
                     <label for="name">Apellido <span class="obligacion">*</span></label>
                     <input type="text" id="newapellido" v-model="newapellido" name="newapellido" placeholder="Ingrese el Apellido" required>
                     <span v-show="mensaje_apellido">{{mensaje_newalumno_apellido}}</span>
-                </div><div class="input-group">
+                </div>
+                <div class="input-group">
                     <label for="name">Documento <span class="obligacion">*</span></label>
                     <input type="Number" id="newdocumento" v-model="newdocumento" name="newdocumento" placeholder="Ingrese el Documento" required>
                     <span v-show="mensaje_documento">{{mensaje_newalumno_doc}}</span>
-                </div>
-                <div class="input-group">
-                    <label for="text">Direccion</label>
-                    <input type="text" id="newdireccion" name="newdireccion" placeholder="Ingrese la direccion" required>
                 </div>
                 <div class="input-group">
                         <label for="tel">Telefono</label>
@@ -92,6 +89,11 @@
                 <div class="input-group">
                     <label for="tel">Telefono de emergencia</label>
                     <input type="tel" id="newtelefono-emergencia" name="newtelefonoemergencia" placeholder="Ingrese el Telefono" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="text">Direccion</label>
+                    <input type="text" id="newdireccion" name="newdireccion" placeholder="Ingrese la direccion" required>
                 </div>
                 <div class="input-group">
                     <label for="text">Ciudad Natal</label>

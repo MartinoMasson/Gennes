@@ -1,4 +1,5 @@
 const gennes_alumnos = new Alumnos();
+gennes_alumnos.Agregar_alumno('Martino','Masson',2281322368,2281587881,'11/11/2003',44393800,'','',0,'',[],[-1,-1,-1,-1,-1])
 //ver Lista de Alumnos
 function Mostrar_Alumnos(menu) {
     const contenedor = document.getElementById('listaAlumnos');
