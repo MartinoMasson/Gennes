@@ -131,47 +131,53 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     flex-direction: column;
     align-items: center;
     gap: 15px;
-
-    .alumno-sublista{
-        display: flex;
-        color: black;
-        align-items: center;
-        justify-content: space-between;
-        background: rgba(228, 227, 227, 0.589);
-        width: 80%;
-        padding: 5px 15px;
-        border-radius: 15px;
-        font-size: 15px;
-        
-        a{
-            display: flex;
-            gap: 50px;
-            color: black;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        a:hover,p:hover, button:hover{
-            color:rgb(49, 48, 48);
-            text-decoration-line: underline;
-            cursor: pointer;
-        }
-        button{
-            background: none;
-            border: none;
-        }
-    }
-
+    
     .listadoAlumnos{
-        width: 100%;
+        max-width: 100%;
         display: flex;
         flex-direction: column;
         gap: 15px;
         align-items: center;
+        flex-wrap: wrap;
+        .alumno-sublista{
+            display: flex;
+            color: black;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(228, 227, 227, 0.589);
+            width: 80%;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 15px;
+            gap: 15px;
+            flex-wrap: wrap;
+            
+            a{
+                display: flex;
+                gap: 50px;
+                color: black;
+                cursor: pointer;
+                text-decoration: none;
+            }
+            a:hover,p:hover, button:hover{
+                color:rgb(49, 48, 48);
+                text-decoration-line: underline;
+                cursor: pointer;
+            }
+            button{
+                background: none;
+                border: none;
+            }
+        }
     }
+
+
+    
 
     .cronometro{
         margin-right: 15px;
         display: flex;
+        flex-wrap: wrap;
 
         button{
             border-radius: 15px;
@@ -443,13 +449,15 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     justify-content: center;
     gap: 50px;
     text-align: start;
+    flex-wrap: wrap;
 
     .datos-principales{
         background: rgba(54, 54, 54, 0.615);
         padding: 15px;
         border-radius: 10px;
         height: 100%;
-        width: 15%;
+        min-width: 15%;
+        max-width: 55%;
         color: white;
         border: 2px solid black;
 
@@ -500,8 +508,9 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 
     .datos-secundarios{
         background: rgba(54, 54, 54, 0.615);
-        width: 40%;
-        padding: 10px 50px;
+        min-width: 40%;
+        max-height: 40%;
+        padding: 10px 2%;
         border-radius: 10px;
         border: 2px solid black;
         height: 100%;
@@ -519,7 +528,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
         }
         input{
             border-radius: 10px;
-            width: 48%;
+            width: 78%;
             padding: 10px;
             border: 1px solid #ccc;
             outline: none;
@@ -554,6 +563,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
             display: flex;
             justify-content: space-around;
             align-items: center;
+            flex-wrap: wrap;
 
             div{
                 display: flex;
