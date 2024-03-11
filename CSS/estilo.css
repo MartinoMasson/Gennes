@@ -61,6 +61,8 @@ header {
     justify-content: center;
     align-items: center;
     min-height: calc(80vh - 23px);
+    background-image: url('Imagenes/fondo.jpg');
+    background-size: cover;
 }
 
 .personas{
