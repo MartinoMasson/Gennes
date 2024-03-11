@@ -223,33 +223,33 @@
                     <div class="ejercicio_dia">
                         <div id="bloque_lunes">
                             <label for="Lunes" ><input type="checkbox" id="newRutinaLunes" value="Lunes" onchange="habilitarBoton('newRutinaLunes', 'botonLunes')" /> Lunes</label>
-                            <button type="button" id="botonLunes" onclick="agregarbloque('bloque_lunes','botonLunes',1)" disabled>Agregar Bloque</button>
+                            <button type="button" id="botonLunes" @click="agregarbloque('bloque_lunes','botonLunes',1)" disabled>Agregar Bloque</button>
                         </div>
                     
                         <div id="bloque_martes">
                             <label for="Martes"><input type="checkbox" id="newRutinaMartes" value="Martes" onchange="habilitarBoton('newRutinaMartes', 'botonMartes')" /> Martes</label>
-                            <button type="button" id="botonMartes" onclick="agregarbloque('bloque_martes','botonMartes',2)" disabled>Agregar Bloque</button>
+                            <button type="button" id="botonMartes" @click="agregarbloque('bloque_martes','botonMartes',2)" disabled>Agregar Bloque</button>
                         </div>
                     
                         <div id="bloque_miercoles">
                             <label for="Miercoles"><input type="checkbox" id="newRutinaMiercoles" value="Miercoles" onchange="habilitarBoton('newRutinaMiercoles', 'botonMiercoles')" /> Miercoles</label>
-                            <button type="button" id="botonMiercoles" onclick="agregarbloque('bloque_miercoles','botonMiercoles',3)" disabled>Agregar Bloque</button>
+                            <button type="button" id="botonMiercoles" @click="agregarbloque('bloque_miercoles','botonMiercoles',3)" disabled>Agregar Bloque</button>
                         </div>
                     
                         <div id="bloque_jueves">
                             <label for="Jueves"><input type="checkbox" id="newRutinaJueves" value="Jueves" onchange="habilitarBoton('newRutinaJueves', 'botonJueves')" /> Jueves</label>
-                            <button type="button" id="botonJueves" onclick="agregarbloque('bloque_jueves','botonJueves',4)" disabled>Agregar Bloque</button>
+                            <button type="button" id="botonJueves" @click="agregarbloque('bloque_jueves','botonJueves',4)" disabled>Agregar Bloque</button>
                         </div>
                     
                         <div id="bloque_viernes">
                             <label for="Viernes"><input type="checkbox" id="newRutinaViernes" value="Viernes" onchange="habilitarBoton('newRutinaViernes', 'botonViernes')" /> viernes</label>
-                            <button type="button" id="botonViernes" onclick="agregarbloque('bloque_viernes','botonViernes',5)" disabled>Agregar Bloque</button>
+                            <button type="button" id="botonViernes" @click="agregarbloque('bloque_viernes','botonViernes',5)" disabled>Agregar Bloque</button>
                         </div>
                     </div>
                     <button type="button" class="guardar_rutina" @click="ocultarNuevaRutina">Gruardar Rutina</button>
                 </form>
             </div>
-            <div class="agregarejercicios" id="nuevo_ejercicios">
+            <div v-show="agregarejercicio_rutina" class="agregarejercicios" id="nuevo_ejercicios">
                 <div class="tiposejercicios" id="contenedor-grupos">
                     <span onclick="Agregar_ejercicios()">×</span>
                     <div id="tiposejercicios"></div>

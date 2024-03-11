@@ -39,6 +39,7 @@ const menu = createApp({
             verRutina:false,
             Rutina:true,
             verNuevaRutina: false,
+            agregarejercicio_rutina:false
         }
     },
     methods:{
@@ -204,6 +205,79 @@ const menu = createApp({
         ocultarNuevaRutina(){
             this.Rutina = true;
             this.verNuevaRutina = false;
+        },
+
+        agregarbloque(bloque_dia,btn,dia){
+            const contenedorbloque = document.createElement('div')
+            contenedorbloque.id = 'bloques'
+        
+            const eliminar = document.createElement('spam')
+            eliminar.textContent = '×';
+            eliminar.classList = "eliminar"
+            eliminar.id = 'eliminar_bloque'
+        
+            const contenedorplan = document.createElement('a')
+            contenedorplan.textContent = "Bloque nro " 
+        
+            const nrobloque = document.createElement('a')
+            nrobloque.id = 'nrobloque'
+            
+            contador[dia-1]++
+            nrobloque.textContent = contador[dia-1]
+        
+            
+            var newbloque = new Bloque(nrobloque.textContent)
+            newrutina.Agregar_Bloque(newbloque,dia)
+        
+            contenedorplan.appendChild(nrobloque)
+        
+            const lista_ejercicios = document.createElement('div')
+            lista_ejercicios.id = "ejercicios_rutina"
+        
+            const btn_agregar_ejercicio = document.createElement('button')
+            btn_agregar_ejercicio.textContent = "Agregar Ejercicio"
+            btn_agregar_ejercicio.type = "button"
+            btn_agregar_ejercicio.onclick = function() {
+                this.agregarejercicio_rutina=true
+                //bloque_ejercicio=lista_ejercicios
+                //Agregar_ejercicios(dia,nrobloque.textContent);
+            }; 
+        
+            eliminar.onclick = function() {
+                eliminarBloque(eliminar,bloque_dia,dia,nrobloque.textContent);
+            }; 
+        
+            const labelseries = document.createElement('label')
+            labelseries.for='number'
+            labelseries.textContent = 'Series: '
+        
+            const inputseries = document.createElement('input')
+            inputseries.type = "number"
+            inputseries.value = 0
+            inputseries.min = '0'
+        
+            inputseries.addEventListener('input', function() {
+                // Actualizar las series del bloque correspondiente cuando cambie el valor del input
+                const bloques = newrutina.Obtener_Bloques(semana);
+                for(let i=0;i<bloques.length;i++){
+                    if(bloques[i].nro === nrobloque.textContent)
+                        bloques[i].series = inputseries.value
+                }
+            });
+        
+        
+            labelseries.appendChild(inputseries)
+        
+            contenedorbloque.appendChild(eliminar)
+            contenedorbloque.appendChild(contenedorplan)
+            contenedorbloque.appendChild(lista_ejercicios)
+            contenedorbloque.appendChild(btn_agregar_ejercicio)
+            contenedorbloque.appendChild(labelseries)
+        
+            const btn_agregar_bloque = document.getElementById(btn)
+            const contenedor = document.getElementById(bloque_dia)
+            
+            contenedor.insertBefore(contenedorbloque,btn_agregar_bloque) 
         }
 
 
