@@ -68,13 +68,22 @@
             <h2>Nuevo Alumno</h2>
             <form class="nuevoalumno-form" id="nuevoalumno-Form">
                 <div class="input-group">
-                        <label for="name">Nombre Completo<span class="obligacion">*</span></label>
+                        <label for="name">Nombre <span class="obligacion">*</span></label>
                         <input type="text" id="newnombre" v-model="newnombre" name="newnombre" placeholder="Ingrese el Nombre completo" required>
                         <span v-show="mensaje_nombre">{{mensaje_newalumno_nom}}</span>
                 </div>
                 <div class="input-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="newemail" name="newemail" placeholder="Ingrese el Email" required>
+                    <label for="name">Apellido <span class="obligacion">*</span></label>
+                    <input type="text" id="newapellido" v-model="newapellido" name="newapellido" placeholder="Ingrese el Apellido" required>
+                    <span v-show="mensaje_apellido">{{mensaje_newalumno_apellido}}</span>
+                </div><div class="input-group">
+                    <label for="name">Documento <span class="obligacion">*</span></label>
+                    <input type="Number" id="newdocumento" v-model="newdocumento" name="newdocumento" placeholder="Ingrese el Documento" required>
+                    <span v-show="mensaje_documento">{{mensaje_newalumno_doc}}</span>
+                </div>
+                <div class="input-group">
+                    <label for="text">Direccion</label>
+                    <input type="text" id="newdireccion" name="newdireccion" placeholder="Ingrese la direccion" required>
                 </div>
                 <div class="input-group">
                         <label for="tel">Telefono</label>
@@ -85,23 +94,20 @@
                     <input type="tel" id="newtelefono-emergencia" name="newtelefonoemergencia" placeholder="Ingrese el Telefono" required>
                 </div>
                 <div class="input-group">
-                        <label for="radio">Sexo<span class="obligacion">*</span></label>
-                        <div class="tiposexo">
-                            <input type="radio" id="masculino" name="sexo" v-model="newsexo" value="Masculino"  required>
-                            <label for="Masculino">Masculino</label><br>
-                            <input type="radio" id="femenino" name="sexo" v-model="newsexo" value="Femenino" required>
-                            <label for="Femenino">Femenino</label><br>
-                            <input type="radio" id="sinespecificar" name="sexo" v-model="newsexo" value="Sin especificar" required>
-                            <label for="SinEspecificar">Sin especificar</label><br>
-                        </div>
-                        <span v-show="mensaje_sexo">{{mensaje_newalumno_sexo}}</span>
+                    <label for="text">Ciudad Natal</label>
+                    <input type="text" id="newciudadnatal" name="newciudadnatal" placeholder="Ingrese su Ciudad natal" required>
                 </div>
                 <div class="input-group">
-                    <label for="number">Edad</label>
-                    <input type="number" id="newedad" name="newedad" placeholder="Edad" min="0" required>
+                    <label for="text">Profesion/Ocupacion</label>
+                    <input type="text" id="newprofesion" name="newprofesion" placeholder="Ingrese la Profesion" min="0" required>
+                </div>
+                <div class="input-group">
+                    <label for="date">Fecha de Nacimiento <span class="obligacion">*</span></label>
+                    <input type="date" v-model="newfecha_nacimiento" id="newfecha_nacimiento" name="newedad" required>
+                    <span v-show="mensaje_fecha_nacimiento">{{mensaje_newalumno_fecha_nacimiento}}</span>
                 </div>
                 <div class="input-group ">
-                    <label for="textarea">Hitorial Clinico</label>
+                    <label for="textarea">Antecedentes deportivos o de practidas del ejercicios <h6>(ultimos 6 meses)</h6></label>
                     <textarea name="historialclinico" id="newhist_clinico" cols="80" rows="5"></textarea>
                 </div>
                 <div class="input-group entrenamiento">
@@ -129,15 +135,16 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn_agregaralumno" @click="agregarAlumno" onclick="limpiarFormulario()"  id="Agregar_Alumno" type="button" >Agregar</button>
+                <button class="btn_agregaralumno" @click="agregarAlumno" id="Agregar_Alumno" type="button" >Agregar</button>
             </form>
         </div>
         <div class="ver-alumno" v-show="verAlumno">
             <div class="datos-principales">
                 <h3 id="nombre-alumno"></h3>
+                <h3 id="apellido-alumno"></h3>
                 <div>
-                    <p id="sexo_alumno"></p>
-                    <label type="number">Edad: <input title="" min="5" type="number" name="edad" id="edad-alumno" readonly> Años</label>
+                    <p id="dni_alumno"></p>
+                    <p id="fecha_nac_alumno"></p>
                     <label type="number">Peso: <input title=""  min="0" type="number" name="peso" id="peso-alumno" readonly> Kg</label>
                     <label type="number">Altura: <input title=""  min="0" type="number" name="altura"  id="altura-alumno" readonly> Cm</label>
                     <label type="number">Masa Muscular: <input title=""  type="number" min="0" name="masa"  id="masa_muscular-alumno" readonly>%</label>
@@ -148,10 +155,6 @@
             </div>
             <div class="datos-secundarios">
                 <h3>Datos Personales</h3>
-                <label for="email">Email</label>
-                <div class="editorinput">            
-                    <input title="Email "  type="email" title="Email" id="email_alumno" readonly >
-                </div>
                 <label for="number">Telefono</label>
                 <div class="editorinput">
                     <input title="Telefono"  type="number" id="telefono_alumno" readonly>
@@ -161,6 +164,18 @@
                 <div class="editorinput">
                     <input title="Telefono-emergencia"  type="number" id="telefono_emergencia_alumno" readonly>
                     <button  class="whatsapp-btn" title="btn-whatsapp-emergencia" onclick="abrirWhatsApp(document.getElementById('telefono_emergencia_alumno').value)"><img src="../CSS/iconos/icons8-whatsapp-50.png" alt=""></button>
+                </div>
+                <label for="text">Direccion</label>
+                <div class="editorinput">            
+                    <input title="Direccion"  type="text" title="Direccion" id="direccion_alumno" readonly >
+                </div>
+                <label for="text">Ciudad Natal</label>
+                <div class="editorinput">            
+                    <input title="Ciudad_Natal"  type="text" title="Ciudad_Natal" id="ciudad_natal" readonly >
+                </div>
+                <label for="text">Profesion</label>
+                <div class="editorinput">            
+                    <input title="profesion"  type="text" title="profesion" id="profesion" readonly >
                 </div>
                 <label for="textarea">Hitorial Clinico</label>
                 <textarea name="historialclinico" placeholder="hist_clinico" id="hist_clinico" cols="60" rows="5" readonly></textarea>
@@ -232,7 +247,7 @@
                     <button type="button" class="guardar_rutina" @click="ocultarNuevaRutina">Gruardar Rutina</button>
                 </form>
             </div>
-            <div class="agregarejercicios" v-show="agregarEjercicios" id="nuevo_ejercicios">
+            <div class="agregarejercicios" id="nuevo_ejercicios">
                 <div class="tiposejercicios" id="contenedor-grupos">
                     <span onclick="Agregar_ejercicios()">×</span>
                     <div id="tiposejercicios"></div>

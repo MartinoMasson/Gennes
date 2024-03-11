@@ -12,11 +12,17 @@ const menu = createApp({
 
             //input necesarios para agregar Alumnos
             newnombre:'',
-            newsexo:'',
+            newapellido:'',
+            newdocumento:'',
+            newfecha_nacimiento:'',
             mensaje_newalumno_nom:'',
-            mensaje_newalumno_sexo:'',
+            mensaje_newalumno_apellido:'',
+            mensaje_newalumno_doc:'',
+            mensaje_newalumno_fecha_nacimiento:'',
             mensaje_nombre:false,
-            mensaje_sexo:false,//mensaje error de agregar alumno
+            mensaje_apellido:false,
+            mensaje_documento:false,
+            mensaje_fecha_nacimiento:false,//mensaje error de agregar alumno
             
             verGrupos: true,
             verListaEjercicios: false,
@@ -33,7 +39,6 @@ const menu = createApp({
             verRutina:false,
             Rutina:true,
             verNuevaRutina: false,
-            agregarEjercicios:false
         }
     },
     methods:{
@@ -44,6 +49,7 @@ const menu = createApp({
             this.verNuevoAlumno = false;
             this.verAlumno = false;
             this.verNuevaRutina =  true;
+            this.verRutina = false;
             Llenar_Calendario(this);
         },
         monstrarListaAlumnos(){
@@ -52,6 +58,7 @@ const menu = createApp({
             this.verEjercicios = false;
             this.verNuevoAlumno = false;
             this.verAlumno = false;
+            this.verRutina = false;
             Mostrar_Alumnos(this)
         },
         monstrarEjercicios(){
@@ -60,6 +67,7 @@ const menu = createApp({
             this.verEjercicios = true;
             this.verNuevoAlumno = false;
             this.verAlumno = false;
+            this.verRutina = false;
         },
         monstrarNuevoAlumno(){
             this.verAgenda = false;
@@ -67,6 +75,7 @@ const menu = createApp({
             this.verEjercicios = false;
             this.verNuevoAlumno = true;
             this.verAlumno = false;
+            this.verRutina = false;
         }, 
         monstrarAlumno(nombre){
             this.verAgenda = false;
@@ -78,11 +87,22 @@ const menu = createApp({
         },
 
         agregarAlumno(){
-            if(this.newnombre.trim() !== '' && this.newsexo.trim() !== ''){
-                NuevoAlumno()
-                this.monstrarListaAlumnos();
-                this.newnombre = '';
-                this.newsexo = '';
+            if(this.newnombre.trim() !== '' && this.newapellido.trim() !== ''
+            && this.newdocumento.trim() !== '' && this.newfecha_nacimiento.trim() !== '' ){
+                if(!gennes_alumnos.existe_alumno(this.newdocumento.trim())){
+                    NuevoAlumno()
+                    this.monstrarListaAlumnos();
+                    limpiarFormulario()
+                    this.newnombre = '';
+                    this.newapellido = '';
+                    this.newdocumento = '';
+                    this.mensaje_newalumno_doc='';
+                    this.mensaje_documento = false;
+                }else{
+                    this.mensaje_newalumno_doc='El documento ingresado existe';
+                    this.mensaje_documento = true;
+                }
+                
             }else{
                 if(this.newnombre.trim() === ''){
                     this.mensaje_newalumno_nom='Ingrese el Nombre Completo';
@@ -91,12 +111,26 @@ const menu = createApp({
                     this.mensaje_newalumno_nom='';
                     this.mensaje_nombre = false;
                 }
-                if(this.newsexo.trim() === ''){
-                    this.mensaje_newalumno_sexo='Seleccione un sexo';
-                    this.mensaje_sexo = true;
+                if(this.newapellido.trim() === ''){
+                    this.mensaje_newalumno_apellido='Ingrese el Apellido';
+                    this.mensaje_apellido = true;
                 }else{
-                    this.mensaje_newalumno_sexo='';
-                    this.mensaje_sexo = false;
+                    this.mensaje_newalumno_apellido='';
+                    this.mensaje_apellido = false;
+                }
+                if(this.newdocumento.trim() === ''){
+                    this.mensaje_newalumno_doc='Ingrese un docuemnto';
+                    this.mensaje_documento = true;
+                }else{
+                    this.mensaje_newalumno_doc='';
+                    this.mensaje_documento = false;
+                }
+                if(this.newfecha_nacimiento.trim() === ''){
+                    this.mensaje_newalumno_fecha_nacimiento='Ingrese un docuemnto';
+                    this.mensaje_fecha_nacimiento = true;
+                }else{
+                    this.mensaje_newalumno_fecha_nacimiento='';
+                    this.mensaje_fecha_nacimiento = false;
                 }
             } 
         },
@@ -170,9 +204,6 @@ const menu = createApp({
         ocultarNuevaRutina(){
             this.Rutina = true;
             this.verNuevaRutina = false;
-        },
-        agregarEjercicio(){
-            this.agregarEjercicios = true
         }
 
 

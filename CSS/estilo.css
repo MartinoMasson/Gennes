@@ -1,10 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-image: url('Imagenes/fondo.jpg');
-    background-size: cover;
     font-family: cursive;
-
 }::-webkit-scrollbar {
         width: 12px; /* ancho de la barra de desplazamiento */
 }::-webkit-scrollbar-thumb {

@@ -11,6 +11,11 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     color: #a84849;
     font-size: 20px;
     min-height: calc(100vh - 193px);
+    
+    background-image: url('Imagenes/fondo.jpg');
+    background-size: cover;
+    padding-top: 10px;
+    padding-bottom: 30px;
 }
 .nuevoalumno{
     min-height: calc(100vh - 156px);
@@ -33,27 +38,28 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     }
 
     form{
-        width: 80%;
+        width: 100%;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         gap: 15px;
-        justify-content: space-around;
+        justify-content: flex-start;
         border: 2px solid black;
     }
 
     .input-group{
-        display: flex;
+        display: block;
         flex-direction: column;
         min-width: 45%;
         max-width: 100%;
-        width: auto;
-        text-align: justify;
+        text-align: start;
     
         label{
+            display: block;
             color: rgb(221, 215, 215);
         }
         input{
+            display: block;
             width: 90%;
             padding: 10px;
             border-radius: 4px;
@@ -67,31 +73,15 @@ input[type="time"]::-webkit-calendar-picker-indicator {
             color: red;
             font-size: 15px;
         }
-    }
-
-    .tiposexo{
-        display: flex;
-        gap: 15px;
-        justify-content: first baseline;
-        text-align: center;
-        flex-wrap: wrap;
-        
-        label{
-            font-size: 18px;
-        }
-
-        input[type="radio"]{
-            width: auto;
-            padding: 0;
-            border-radius: 0;
-            border: none;
-            outline: none;
+        h6{
+            display: contents;
+            font-size: 10px;
         }
     }
 
     textarea{
         border-radius: 10px;
-        max-width: 100%;
+        max-width: calc(100% - 30px);
         padding: 15px;
         font-size: 15px;
         outline: none;
@@ -126,6 +116,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
         cursor: pointer;
         border: 2px solid black;
         width: 60%;
+        margin: 0 auto;
     }
     .btn_agregaralumno:hover{
         background-color: #a7383a;
@@ -399,7 +390,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 }
 .agendacontenedor{
     max-width: 80%;
-    margin: 20px auto;
+    margin: 0 auto;
     padding: 0 10px;
     color: #a84849;
     background: rgba(228, 227, 227, 0.589);
@@ -465,12 +456,19 @@ input[type="time"]::-webkit-calendar-picker-indicator {
         h3{
             text-align: center;
             color: white;
+            margin: 0;
+            font-size: 15px;
         }
         div{
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
             gap: 15px;
+            margin: 5px 0;
+            p{
+                margin: 0;
+                font-size: 15px;
+            }
             input{
                 border-radius: 10px;
                 width: 25%;
@@ -478,6 +476,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
                 outline: none;
                 background: none;
                 color: white;
+                padding: 0;
             }
         }
         #guardardatos{
@@ -662,124 +661,124 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     .guardar_rutina:hover{
         background-color: #a84849;
     }
-    .agregarejercicios{
+}
+.agregarejercicios{
+    display: flex;
+    align-items: center;
+    min-height: calc(100vh - 153px);
+    text-align: center;
+    justify-content: center;
+    position: absolute;
+    top: 110px;
+    width: 100%;
+    height: 70%;
+
+    .tiposejercicios{
         display: flex;
-        align-items: center;
-        min-height: calc(100vh - 153px);
-        text-align: center;
         justify-content: center;
-        position: absolute;
-        top: 110px;
+        align-items: center;
+        width: 80%;
+        height: 80%;
+        background-color: #c7c7c7ab;
+        padding: 15px;
+        border-radius: 30px;
+        flex-wrap: wrap;
+    }
+    .tipos{
+        color: #ffffff;
+        background: #49494971;
+        padding: 30px;
+        border-radius: 20px;
+        font-size: 15px;
+        border: 3px solid #a84849;
+        cursor: pointer;
+    }
+    .tipos:hover,.lista_ejercicios button:hover,.guardar_rutina:hover,.ejercicio_dia div button:hover{
+        background-color: #a84849;
+        text-decoration-line: underline;
+    }
+    .ejercicios{
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        max-width: 100%;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 15px;
+        align-items: center;
+        button{
+            background: #a84849;
+            width: 50%;
+            padding: 15px;
+            border-radius: 15px;
+            border: none;
+            cursor: pointer;
+            color: #ccc;
+        }
+        button:hover{
+            background: #252525b4;
+        }
+    }
+    .eliminar_ejercicio{
+        cursor: pointer;
+    }
+    .rutina-lista_ejercicios{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
         width: 100%;
         height: 70%;
 
-        .tiposejercicios{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 80%;
-            height: 80%;
-            background-color: #c7c7c7ab;
-            padding: 15px;
-            border-radius: 30px;
-            flex-wrap: wrap;
-        }
-        .tipos{
-            color: #ffffff;
-            background: #49494971;
-            padding: 30px;
-            border-radius: 20px;
-            font-size: 15px;
-            border: 3px solid #a84849;
-            cursor: pointer;
-        }
-        .tipos:hover,.lista_ejercicios button:hover,.guardar_rutina:hover,.ejercicio_dia div button:hover{
-            background-color: #a84849;
-            text-decoration-line: underline;
-        }
-        .ejercicios{
-            display: flex;
-            flex-direction: column;
-            width: 80%;
-            max-width: 100%;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 15px;
-            align-items: center;
-            button{
-                background: #a84849;
-                width: 50%;
-                padding: 15px;
-                border-radius: 15px;
-                border: none;
-                cursor: pointer;
-                color: #ccc;
-            }
-            button:hover{
-                background: #252525b4;
-            }
-        }
-        .eliminar_ejercicio{
-            cursor: pointer;
-        }
-        .rutina-lista_ejercicios{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            width: 100%;
-            height: 70%;
-
-            span{
-                color: white;
-                font-size: 30px;
-                position: absolute;
-                right: 10%;
-                top: 5%;
-                cursor: pointer;
-            }
-            input{
-                padding: 15px;
-                border: none;
-                border-radius: 15px;
-                width: 70%;
-            }
-        }
-        .tiposejercicios span{
+        span{
             color: white;
             font-size: 30px;
             position: absolute;
-            right: 15%;
-            top: 15%;
+            right: 10%;
+            top: 5%;
             cursor: pointer;
         }
-
-        .lista_ejercicios button{
-            background: #f3f3f38f;
+        input{
             padding: 15px;
+            border: none;
             border-radius: 15px;
-            width: 40%;
-            margin: 0 20px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            text-align: center;
-            align-items: center
+            width: 70%;
         }
-
-        #ejercicios_rutina{
-            align-items: center;
-            gap: 5px;
-            border: 2px solid #a84849;
-            padding: 10px;
-            border-radius: 15px;
-            margin: 10px;
-        }
-        .ejercicio_en_bloque{
-            padding: 0 5px;
-            flex-direction: row !important;
-            justify-content: space-evenly !important;
-        }
-        
     }
+    .tiposejercicios span{
+        color: white;
+        font-size: 30px;
+        position: absolute;
+        right: 15%;
+        top: 15%;
+        cursor: pointer;
+    }
+
+    .lista_ejercicios button{
+        background: #f3f3f38f;
+        padding: 15px;
+        border-radius: 15px;
+        width: 40%;
+        margin: 0 20px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        text-align: center;
+        align-items: center
+    }
+
+    #ejercicios_rutina{
+        align-items: center;
+        gap: 5px;
+        border: 2px solid #a84849;
+        padding: 10px;
+        border-radius: 15px;
+        margin: 10px;
+    }
+    .ejercicio_en_bloque{
+        padding: 0 5px;
+        flex-direction: row !important;
+        justify-content: space-evenly !important;
+    }
+    
 }

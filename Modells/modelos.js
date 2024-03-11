@@ -1,18 +1,24 @@
 class Persona {
-    constructor(nombre, email, telefono, telefono_emergencia, sexo, edad, altura, hist_clinico,dias_entrenamiento,horarios_entrenamiento) {
+    constructor(nombre, apellido, telefono, telefono_emergencia, fecha_nacimiento, dni, direccion, Ciudad_Natal, Profesion, hist_clinico,dias_entrenamiento,horarios_entrenamiento) {
         this.nombre = nombre;
-        this.email = email;
+        this.apellido = apellido;
         this.telefono = telefono;
         this.telefono_emergencia = telefono_emergencia;
-        this.sexo = sexo;
-        this.edad = edad;
-        this.altura = altura;
+        this.fecha_nacimiento = fecha_nacimiento;
+        this.dni = dni;
+        this.direccion = direccion;
+        this.Ciudad_Natal = Ciudad_Natal;
+        this.Profesion = Profesion
+        this.historial_clinico = hist_clinico;
+
+        this.dias_entrenamiento = dias_entrenamiento;
+        this.horarios_entrenamiento = horarios_entrenamiento;
+        
+        this.altura = 0;
         this.peso =[];
         this.masa_muscular =[];
         this.grasa_corporal =[];
-        this.historial_clinico = hist_clinico;
-        this.dias_entrenamiento = dias_entrenamiento;
-        this.horarios_entrenamiento = horarios_entrenamiento;
+
         this.rutina =[];
         this.evaluacion =[];
     }
@@ -80,11 +86,58 @@ class Rutina{
         
     }
 }
-const mapa_alumno = new Map();
-const calendario = new Map()
 const mapa_Ejercicios = new Map()
-
+const calendario = new Map()
 var listaejercicios = []
 listaejercicios.push('Sentadillas')
 listaejercicios.push('Sentadillas Isometricas')
 mapa_Ejercicios.set('Piernas',listaejercicios)
+
+class Alumnos {
+    constructor(){
+        this.mapa_alumno = new Map();
+    }
+    obtener_Mapa(){
+        return this.mapa_alumno
+    }
+    obtener_Alumno(dni){
+        return this.mapa_alumno.get(dni) || new Map();
+    }
+    Agregar_alumno(nombre, apellido, telefono, telefono_emergencia, fecha_nacimiento, dni, direccion, Ciudad_Natal, Profesion, hist_clinico,dias_entrenamiento,horarios_entrenamiento){
+        const newalumno = new Persona(nombre, apellido, telefono, telefono_emergencia, fecha_nacimiento, dni, direccion, Ciudad_Natal, Profesion, hist_clinico,dias_entrenamiento,horarios_entrenamiento)
+        this.mapa_alumno.set(dni,newalumno)
+    }
+    existe_alumno(dni){
+        return this.mapa_alumno.has(dni)
+    }
+    editar_alumno(dni, telefono, telefono_emergencia,direccion,ciudad_natal,profesion, altura, hist_clinico ,dias_entrenamiento,horarios_entrenamiento, peso, masa_muscular,grasa_corporal){
+        var alumno = this.mapa_alumno.get(dni)
+    
+        alumno.telefono = telefono
+        alumno.telefono_emergencia = telefono_emergencia
+        alumno.historial_clinico = hist_clinico
+        alumno.dias_entrenamiento = dias_entrenamiento
+        alumno.horarios_entrenamiento = horarios_entrenamiento
+        alumno.altura = altura
+        alumno.direccion = direccion
+        alumno.ciudad_natal = ciudad_natal
+        alumno.profesion = profesion
+    
+        if(peso != 0){
+            alumno.peso.push(peso)
+        }
+        if(grasa_corporal != 0){
+            alumno.grasa_corporal.push(grasa_corporal)
+        }
+        if(masa_muscular != 0){
+            alumno.masa_muscular.push(masa_muscular)
+        }
+
+        this.mapa_alumno.set(dni,alumno)
+    }
+    agregar_rutina(dni,rutina){
+        var alumno = this.mapa_alumno.get(dni)
+
+        alumno.rutina.push(rutina)
+    }
+}
