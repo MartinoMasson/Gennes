@@ -112,7 +112,7 @@ class Alumnos {
     }
     editar_alumno(dni, telefono, telefono_emergencia,direccion,ciudad_natal,profesion, altura, hist_clinico ,dias_entrenamiento,horarios_entrenamiento, peso, masa_muscular,grasa_corporal){
         var alumno = this.mapa_alumno.get(dni)
-    
+
         alumno.telefono = telefono
         alumno.telefono_emergencia = telefono_emergencia
         alumno.historial_clinico = hist_clinico
@@ -120,8 +120,8 @@ class Alumnos {
         alumno.horarios_entrenamiento = horarios_entrenamiento
         alumno.altura = altura
         alumno.direccion = direccion
-        alumno.ciudad_natal = ciudad_natal
-        alumno.profesion = profesion
+        alumno.Ciudad_Natal = ciudad_natal
+        alumno.Profesion = profesion
     
         if(peso != 0){
             alumno.peso.push(peso)

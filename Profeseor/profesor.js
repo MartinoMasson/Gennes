@@ -33,21 +33,16 @@ function Mostrar_Alumnos(menu) {
                 datosAlumnos.classList = "alumno-sublista";
 
                 const nombre = document.createElement('a');
-                nombre.textContent = valor.nombre;
+                var nombrecompleto = `${valor.nombre} ${valor.apellido}`
+                nombre.textContent = nombrecompleto;
                 nombre.addEventListener('click', function() {
-                    menu.monstrarAlumno(valor.dni);
-                });
-
-                const apellido = document.createElement('a');
-                apellido.textContent = valor.apellido;
-                apellido.addEventListener('click', function() {
                     menu.monstrarAlumno(valor.dni);
                 });
 
                 const telefono = document.createElement('a');
                 telefono.textContent = valor.telefono;
                 telefono.addEventListener('click', function() {
-                    menu.monstrarAlumno(valor.dni);
+                    abrirWhatsApp(valor.telefono);
                 });
 
                 const cronometro = document.createElement('div');
@@ -79,7 +74,6 @@ function Mostrar_Alumnos(menu) {
                 rutina.addEventListener('click', () => menu.mostrarRutina());
 
                 datosAlumnos.appendChild(nombre);
-                datosAlumnos.appendChild(apellido);
                 datosAlumnos.appendChild(telefono);
                 datosAlumnos.appendChild(cronometro);
                 datosAlumnos.appendChild(rutina);
@@ -328,23 +322,23 @@ function LLenar_campos(dni){
     const horariosEntrenamiento = alumno.horarios_entrenamiento || {};
 
     if(horariosEntrenamiento[0] === -1)
-        document.getElementById(`lunes-horario`).value = ""   
+        document.getElementById(`lunes-horario`).value = "06:00"     
     else
         document.getElementById(`lunes-horario`).value = horariosEntrenamiento[0] 
     if(horariosEntrenamiento[1] === -1)
-            document.getElementById(`martes-horario`).value = ""  
+            document.getElementById(`martes-horario`).value = "06:00"  
     else
         document.getElementById(`martes-horario`).value = horariosEntrenamiento[1] 
     if(horariosEntrenamiento[2] === -1)
-            document.getElementById(`miercoles-horario`).value = ""   
+            document.getElementById(`miercoles-horario`).value = "06:00"     
     else
         document.getElementById(`miercoles-horario`).value = horariosEntrenamiento[2] 
     if(horariosEntrenamiento[3] === -1)
-            document.getElementById(`jueves-horario`).value = ""  
+            document.getElementById(`jueves-horario`).value = "06:00"    
     else
         document.getElementById(`jueves-horario`).value = horariosEntrenamiento[3] 
     if(horariosEntrenamiento[4]  === -1)
-            document.getElementById(`viernes-horario`).value = "" 
+            document.getElementById(`viernes-horario`).value = "06:00"   
     else
         document.getElementById(`viernes-horario`).value = horariosEntrenamiento[4] 
 
@@ -409,7 +403,7 @@ function deshabilitarInputs() {
     editar.style.display = "block"
     guardar.style.display = "none"
 
-    const dni = document.getElementById('dni_alumno').textContent
+    const dni = parseInt(document.getElementById('dni_alumno').textContent)
     const peso = document.getElementById('peso-alumno').value
     const altura = document.getElementById('altura-alumno').value
     const masa_muscular = document.getElementById('masa_muscular-alumno').value
@@ -418,8 +412,8 @@ function deshabilitarInputs() {
     const telefono = document.getElementById('telefono_alumno').value
     const telefono_emergencia = document.getElementById('telefono_emergencia_alumno').value
     const direccion = document.getElementById('direccion_alumno').value
-    const ciudad_natal = document.getElementById('ciudad_natal').textContent
-    const profesion = document.getElementById('edad-profesion').value
+    const ciudad_natal = document.getElementById('ciudad_natal').value
+    const profesion = document.getElementById('profesion').value
     const hist_clinico = document.getElementById('hist_clinico').value
     var checkboxesSeleccionados = document.querySelectorAll('.diaentrenamiento input[type="checkbox"]')
     
@@ -430,8 +424,8 @@ function deshabilitarInputs() {
     var horario_viernes=-1
 
 
-    var alumno = mapa_alumno.get(nombre);
-    var horariosanteriores = alumno.horarios_entrenamiento;
+    var alumno = gennes_alumnos.obtener_Alumno(dni);
+    var horariosanteriores = alumno.horarios_entrenamiento || [-1,-1,-1,-1];
 
     for (let i = 0; i < horariosanteriores.length; i++) {
         var vacia = true
@@ -464,11 +458,11 @@ function deshabilitarInputs() {
                 if(calendario.has(horario_lunes)){
                     alumnos = calendario.get(horario_lunes)
                     if(!alumnos[0].includes(wnombre)){
-                        alumnos[0].push(nombre)
+                        alumnos[0].push(alumno.nombre)
                         calendario.set(horario_lunes,alumnos)
                     }
                 }else{
-                    alumnos[0].push(nombre)
+                    alumnos[0].push(alumno.nombre)
                     calendario.set(horario_lunes,alumnos)
                 }
 
@@ -478,12 +472,12 @@ function deshabilitarInputs() {
                 var alumnos = [[],[],[],[],[]];
                 if(calendario.has(horario_martes)){
                     alumnos = calendario.get(horario_martes)
-                    if(!alumnos[1].includes(nombre)){
-                        alumnos[1].push(nombre)
+                    if(!alumnos[1].includes(alumno.nombre)){
+                        alumnos[1].push(alumno.nombre)
                         calendario.set(horario_martes,alumnos)
                     }
                 }else{
-                    alumnos[1].push(nombre)
+                    alumnos[1].push(alumno.nombre)
                     calendario.set(horario_martes,alumnos)
                 }
             }        
@@ -493,12 +487,12 @@ function deshabilitarInputs() {
                 if(calendario.has(horario_miercoles)){
                     alumnos = calendario.get(horario_miercoles)
 
-                    if(!alumnos[2].includes(nombre)){
-                        alumnos[2].push(nombre)
+                    if(!alumnos[2].includes(alumno.nombre)){
+                        alumnos[2].push(alumno.nombre)
                         calendario.set(horario_miercoles,alumnos)
                     }
                 }else{
-                    alumnos[2].push(nombre)
+                    alumnos[2].push(alumno.nombre)
                     calendario.set(horario_miercoles,alumnos)
                 }
             }    
@@ -508,12 +502,12 @@ function deshabilitarInputs() {
                 
                 if(calendario.has(horario_jueves)){
                     alumnos = calendario.get(horario_jueves)
-                    if(!alumnos[3].includes(nombre)){
-                        alumnos[3].push(nombre)
+                    if(!alumnos[3].includes(alumno.nombre)){
+                        alumnos[3].push(alumno.nombre)
                         calendario.set(horario_jueves,alumnos)
                     }
                 }else{
-                    alumnos[3].push(nombre)
+                    alumnos[3].push(alumno.nombre)
                     calendario.set(horario_jueves,alumnos)
                 }
             }    
@@ -523,12 +517,12 @@ function deshabilitarInputs() {
                 
                 if(calendario.has(horario_viernes)){
                     alumnos = calendario.get(horario_viernes)
-                    if(!alumnos[4].includes(nombre)){
-                        alumnos[4].push(nombre)
+                    if(!alumnos[4].includes(alumno.nombre)){
+                        alumnos[4].push(alumno.nombre)
                         calendario.set(horario_viernes,alumnos)
                     }
                 }else{
-                    alumnos[4].push(nombre)
+                    alumnos[4].push(alumno.nombre)
                     calendario.set(horario_viernes,alumnos)
                 }
             }
@@ -536,7 +530,6 @@ function deshabilitarInputs() {
         
     })  
 
-    
     gennes_alumnos.editar_alumno(dni,telefono,telefono_emergencia,direccion,ciudad_natal,profesion,altura, hist_clinico, dias_entrenamiento, [horario_lunes, horario_martes, horario_miercoles, horario_jueves, horario_viernes], peso, masa_muscular,grasa_corporal)
 }
 

@@ -126,7 +126,6 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 .listaalumnos{
     min-height: calc(100vh - 253px);
     display: flex;
-    padding: 50px 0;
     overflow: auto;
     flex-direction: column;
     align-items: center;
@@ -139,18 +138,21 @@ input[type="time"]::-webkit-calendar-picker-indicator {
         gap: 15px;
         align-items: center;
         flex-wrap: wrap;
+        width: 85%;
+
         .alumno-sublista{
             display: flex;
             color: black;
             align-items: center;
             justify-content: space-between;
             background: rgba(228, 227, 227, 0.589);
-            width: 80%;
+            width: calc(100% - 36px);
             padding: 5px 15px;
-            border-radius: 15px;
+            border-radius: 5px;
             font-size: 15px;
-            gap: 15px;
+            gap: 0 25px;
             flex-wrap: wrap;
+            border: 3px solid black;
             
             a{
                 display: flex;
@@ -172,10 +174,8 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     }
 
 
-    
-
     .cronometro{
-        margin-right: 15px;
+        padding: 0 15px;
         display: flex;
         flex-wrap: wrap;
 
@@ -200,7 +200,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
         border: none;
         padding: 15px;
         width: 80%;
-        border-radius: 15px;
+        border-radius: 5px;
     }
 }
 .ejercicios{
