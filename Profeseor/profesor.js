@@ -1,5 +1,3 @@
-const gennes_alumnos = new Alumnos();
-gennes_alumnos.Agregar_alumno('Martino','Masson',2281322368,2281587881,'11/11/2003',44393800,'','',0,'',[],[-1,-1,-1,-1,-1])
 //ver Lista de Alumnos
 function Mostrar_Alumnos(menu) {
     const contenedor = document.getElementById('listaAlumnos');
@@ -154,6 +152,8 @@ function NuevoAlumno(){
     var newciudadnatal = document.getElementById("newciudadnatal").value
     var newprofesion = document.getElementById("newprofesion").value
     var newhist_clinico = document.getElementById("newhist_clinico").value
+    var newantecedentes = document.getElementById("newantecedentes").value
+    var newantecedentes_opciones = document.querySelector("input[name = 'newantecedentes_opcion']:checked").value
 
     var fechaOriginal = document.getElementById("newfecha_nacimiento").value;
     var partesFecha = fechaOriginal.split('-');
@@ -162,95 +162,22 @@ function NuevoAlumno(){
 
     var checkboxesSeleccionados = document.querySelectorAll('.semana input[type="checkbox"]')
     
-    var newhorario_lunes=-1
-    var newhorario_martes=-1
-    var newhorario_miercoles=-1
-    var newhorario_jueves=-1
-    var newhorario_viernes=-1
+    var newhorarios = []
+    newhorarios[0] = document.getElementById("newlunes-horario").value
+    newhorarios[1] = document.getElementById("newmartes-horario").value
+    newhorarios[2] = document.getElementById("newmiercoles-horario").value
+    newhorarios[3] = document.getElementById("newjueves-horario").value
+    newhorarios[4] = document.getElementById("newviernes-horario").value
 
     var newdias = []
     checkboxesSeleccionados.forEach(function(checkbox) {
         if (checkbox.checked) {
             newdias.push(checkbox.value)
-            if (checkbox.value === "Lunes") {
-                newhorario_lunes = document.getElementById("newlunes-horario").value
-                var alumnos = [[],[],[],[],[]];
-                
-                if(calendario.has(newhorario_lunes)){
-                    alumnos = calendario.get(newhorario_lunes)
-                    if(!alumnos[0].includes(newnombre)){
-                        alumnos[0].push(newnombre)
-                        calendario.set(newhorario_lunes,alumnos)
-                    }
-                }else{
-                    alumnos[0].push(newnombre)
-                }
-                calendario.set(newhorario_lunes,alumnos)
-
-            }
-            if(checkbox.value === "Martes"){
-                newhorario_martes = document.getElementById("newmartes-horario").value
-                var alumnos = [[],[],[],[],[]];
-                if(calendario.has(newhorario_martes)){
-                    alumnos = calendario.get(newhorario_martes)
-                    if(!alumnos[1].includes(newnombre)){
-                        alumnos[1].push(newnombre)
-                        calendario.set(newhorario_martes,alumnos)
-                    }
-                }else{
-                    alumnos[1].push(newnombre)
-                    calendario.set(newhorario_martes,alumnos)
-                }
-            }        
-            if(checkbox.value === "Miercoles"){
-                newhorario_miercoles = document.getElementById("newmiercoles-horario").value
-                var alumnos = [[],[],[],[],[]];
-                if(calendario.has(newhorario_miercoles)){
-                    alumnos = calendario.get(newhorario_miercoles)
-
-                    if(!alumnos[2].includes(newnombre)){
-                        alumnos[2].push(newnombre)
-                        calendario.set(newhorario_miercoles,alumnos)
-                    }
-                }else{
-                    alumnos[2].push(newnombre)
-                    calendario.set(newhorario_miercoles,alumnos)
-                }
-            }    
-            if(checkbox.value === "Jueves"){
-                newhorario_jueves = document.getElementById("newjueves-horario").value
-                var alumnos = [[],[],[],[],[]];
-                
-                if(calendario.has(newhorario_jueves)){
-                    alumnos = calendario.get(newhorario_jueves)
-                    if(!alumnos[3].includes(newnombre)){
-                        alumnos[3].push(newnombre)
-                        calendario.set(newhorario_jueves,alumnos)
-                    }
-                }else{
-                    alumnos[3].push(newnombre)
-                    calendario.set(newhorario_jueves,alumnos)
-                }
-            }    
-            if(checkbox.value === "Viernes"){
-                newhorario_viernes = document.getElementById("newviernes-horario").value
-                var alumnos = [[],[],[],[],[]];
-                
-                if(calendario.has(newhorario_viernes)){
-                    alumnos = calendario.get(newhorario_viernes)
-                    if(!alumnos[4].includes(newnombre)){
-                        alumnos[4].push(newnombre)
-                        calendario.set(newhorario_viernes,alumnos)
-                    }
-                }else{
-                    alumnos[4].push(newnombre)
-                    calendario.set(newhorario_viernes,alumnos)
-                }
-            }
         }
     })
-
-    gennes_alumnos.Agregar_alumno(newnombre,newapellido,newtelefono,newtelefono_emergencia,newfecha_nacimiento,newdni, newdireccion, newciudadnatal, newprofesion ,newhist_clinico,newdias,[newhorario_lunes,newhorario_martes,newhorario_miercoles,newhorario_jueves,newhorario_viernes])
+    //Agregaralumno_bd(newnombre,newapellido,newdni,newfecha_nacimiento,newtelefono,newtelefono_emergencia, newdireccion, newciudadnatal, newprofesion,"No","",newhist_clinico,newdias,newhorarios)
+    gennes_alumnos.Agregar_alumno(newnombre,newapellido,newtelefono,newtelefono_emergencia,newfecha_nacimiento,
+        newdni, newdireccion, newciudadnatal, newprofesion, newantecedentes_opciones, newantecedentes, newhist_clinico, newdias,newhorarios)
 }
 document.addEventListener("DOMContentLoaded", function() {
     var checkboxes = document.querySelectorAll('.semana input[type="checkbox"]')
@@ -280,7 +207,7 @@ function limpiarFormulario() {
 function obtener_fecha_actual(){
     // Obtener la fecha actual en formato YYYY-MM-DD
     const hoy = new Date();
-    const año = hoy.getFullYear();
+    const año = hoy.getFullYear()-18;
     let mes = hoy.getMonth() + 1;
     let dia = hoy.getDate();
     
@@ -290,6 +217,8 @@ function obtener_fecha_actual(){
     
     return `${año}-${mes}-${dia}`
 }
+// Establecer la fecha actual como el valor máximo del campo de fecha
+document.getElementById('newfecha_nacimiento').max = obtener_fecha_actual();
 
 //ver Alumno
 function LLenar_campos(dni){
@@ -319,25 +248,26 @@ function LLenar_campos(dni){
     });
 
     // Rellena los horarios de entrenamiento (input type="time")
-    const horariosEntrenamiento = alumno.horarios_entrenamiento || {};
+    const horariosEntrenamiento = alumno.horarios_entrenamiento || null;
 
-    if(horariosEntrenamiento[0] === -1)
+    console.log(horariosEntrenamiento)
+    if(horariosEntrenamiento === null)
         document.getElementById(`lunes-horario`).value = "06:00"     
     else
         document.getElementById(`lunes-horario`).value = horariosEntrenamiento[0] 
-    if(horariosEntrenamiento[1] === -1)
+    if(horariosEntrenamiento === null)
             document.getElementById(`martes-horario`).value = "06:00"  
     else
         document.getElementById(`martes-horario`).value = horariosEntrenamiento[1] 
-    if(horariosEntrenamiento[2] === -1)
+    if(horariosEntrenamiento === null)
             document.getElementById(`miercoles-horario`).value = "06:00"     
     else
         document.getElementById(`miercoles-horario`).value = horariosEntrenamiento[2] 
-    if(horariosEntrenamiento[3] === -1)
+    if(horariosEntrenamiento === null)
             document.getElementById(`jueves-horario`).value = "06:00"    
     else
         document.getElementById(`jueves-horario`).value = horariosEntrenamiento[3] 
-    if(horariosEntrenamiento[4]  === -1)
+    if(horariosEntrenamiento  === null)
             document.getElementById(`viernes-horario`).value = "06:00"   
     else
         document.getElementById(`viernes-horario`).value = horariosEntrenamiento[4] 
@@ -403,7 +333,7 @@ function deshabilitarInputs() {
     editar.style.display = "block"
     guardar.style.display = "none"
 
-    const dni = parseInt(document.getElementById('dni_alumno').textContent)
+    const dni = document.getElementById('dni_alumno').textContent
     const peso = document.getElementById('peso-alumno').value
     const altura = document.getElementById('altura-alumno').value
     const masa_muscular = document.getElementById('masa_muscular-alumno').value
@@ -417,120 +347,22 @@ function deshabilitarInputs() {
     const hist_clinico = document.getElementById('hist_clinico').value
     var checkboxesSeleccionados = document.querySelectorAll('.diaentrenamiento input[type="checkbox"]')
     
-    var horario_lunes=-1
-    var horario_martes=-1
-    var horario_miercoles=-1
-    var horario_jueves=-1
-    var horario_viernes=-1
-
-
-    var alumno = gennes_alumnos.obtener_Alumno(dni);
-    var horariosanteriores = alumno.horarios_entrenamiento || [-1,-1,-1,-1];
-
-    for (let i = 0; i < horariosanteriores.length; i++) {
-        var vacia = true
-        var agenda = calendario.get(horariosanteriores[i])
-        for(let j=0;j<agenda;j++){
-            if (agenda[j].length !== 0) {
-                const index = agenda[j].indexOf(nombre); // Encuentra el índice del elemento a eliminar
-                agenda.splice(index, 1);
-            }
-            if(agenda.length !== 0){
-                vacia = false
-            }
-        }
-        
-        if(vacia){
-            calendario.delete(horariosanteriores[i])
-        }
-    }
-
-
+    var horario= [];
+    horario[0] = document.getElementById("lunes-horario").value
+    horario[1] = document.getElementById("martes-horario").value
+    horario[2] = document.getElementById("miercoles-horario").value
+    horario[3] = document.getElementById("jueves-horario").value
+    horario[4] = document.getElementById("viernes-horario").value
 
     var dias_entrenamiento = []
     checkboxesSeleccionados.forEach(function(checkbox) {
         if (checkbox.checked) {
             dias_entrenamiento.push(checkbox.value)
-            if (checkbox.value === "Lunes") {
-                horario_lunes = document.getElementById("lunes-horario").value
-                var alumnos = [[],[],[],[],[]];
-                
-                if(calendario.has(horario_lunes)){
-                    alumnos = calendario.get(horario_lunes)
-                    if(!alumnos[0].includes(wnombre)){
-                        alumnos[0].push(alumno.nombre)
-                        calendario.set(horario_lunes,alumnos)
-                    }
-                }else{
-                    alumnos[0].push(alumno.nombre)
-                    calendario.set(horario_lunes,alumnos)
-                }
-
-            }
-            if(checkbox.value === "Martes"){
-                horario_martes = document.getElementById("martes-horario").value
-                var alumnos = [[],[],[],[],[]];
-                if(calendario.has(horario_martes)){
-                    alumnos = calendario.get(horario_martes)
-                    if(!alumnos[1].includes(alumno.nombre)){
-                        alumnos[1].push(alumno.nombre)
-                        calendario.set(horario_martes,alumnos)
-                    }
-                }else{
-                    alumnos[1].push(alumno.nombre)
-                    calendario.set(horario_martes,alumnos)
-                }
-            }        
-            if(checkbox.value === "Miercoles"){
-                horario_miercoles = document.getElementById("miercoles-horario").value
-                var alumnos = [[],[],[],[],[]];
-                if(calendario.has(horario_miercoles)){
-                    alumnos = calendario.get(horario_miercoles)
-
-                    if(!alumnos[2].includes(alumno.nombre)){
-                        alumnos[2].push(alumno.nombre)
-                        calendario.set(horario_miercoles,alumnos)
-                    }
-                }else{
-                    alumnos[2].push(alumno.nombre)
-                    calendario.set(horario_miercoles,alumnos)
-                }
-            }    
-            if(checkbox.value === "Jueves"){
-                horario_jueves = document.getElementById("jueves-horario").value
-                var alumnos = [[],[],[],[],[]];
-                
-                if(calendario.has(horario_jueves)){
-                    alumnos = calendario.get(horario_jueves)
-                    if(!alumnos[3].includes(alumno.nombre)){
-                        alumnos[3].push(alumno.nombre)
-                        calendario.set(horario_jueves,alumnos)
-                    }
-                }else{
-                    alumnos[3].push(alumno.nombre)
-                    calendario.set(horario_jueves,alumnos)
-                }
-            }    
-            if(checkbox.value === "Viernes"){
-                horario_viernes = document.getElementById("viernes-horario").value
-                var alumnos = [[],[],[],[],[]];
-                
-                if(calendario.has(horario_viernes)){
-                    alumnos = calendario.get(horario_viernes)
-                    if(!alumnos[4].includes(alumno.nombre)){
-                        alumnos[4].push(alumno.nombre)
-                        calendario.set(horario_viernes,alumnos)
-                    }
-                }else{
-                    alumnos[4].push(alumno.nombre)
-                    calendario.set(horario_viernes,alumnos)
-                }
-            }
         }
-        
     })  
 
-    gennes_alumnos.editar_alumno(dni,telefono,telefono_emergencia,direccion,ciudad_natal,profesion,altura, hist_clinico, dias_entrenamiento, [horario_lunes, horario_martes, horario_miercoles, horario_jueves, horario_viernes], peso, masa_muscular,grasa_corporal)
+
+    gennes_alumnos.editar_alumno(dni,telefono,telefono_emergencia,direccion,ciudad_natal,profesion,altura, hist_clinico, dias_entrenamiento, horario, peso, masa_muscular,grasa_corporal)
 }
 
 
@@ -560,8 +392,6 @@ function habilitarcheckboxes() {
         })
     })
 }
-// Establecer la fecha actual como el valor máximo del campo de fecha
-document.getElementById('newfecha_nacimiento').max = obtener_fecha_actual;
 
 //Ejercicios
 function LlenarGrupoMusculares(menu){
@@ -633,93 +463,6 @@ function agregarEjercicio(menu){
 
 
 
-//Agenda
-function Llenar_Calendario(menu) {
-    const agenda = document.getElementById('agenda');
-    agenda.innerHTML = '';
-    if(calendario.size> 0){
-        const contenedor = document.createElement('ul');
-        const contenedor_vacio = document.createElement('li');
-        contenedor_vacio.className = 'horario';
-
-        const contenedor_lunes = document.createElement('li');
-        contenedor_lunes.className = 'dias';
-        contenedor_lunes.textContent = "Lunes";
-
-        const contenedor_martes = document.createElement('li');
-        contenedor_martes.className = 'dias';
-        contenedor_martes.textContent = "Martes";
-
-        const contenedor_miercoles = document.createElement('li');
-        contenedor_miercoles.className = 'dias';
-        contenedor_miercoles.textContent = "Miercoles";
-
-        const contenedor_jueves = document.createElement('li');
-        contenedor_jueves.className = 'dias';
-        contenedor_jueves.textContent = "Jueves";
-
-        const contenedor_viernes = document.createElement('li');
-        contenedor_viernes.className = 'dias';
-        contenedor_viernes.textContent = "Viernes";
-
-        contenedor.appendChild(contenedor_vacio)
-        contenedor.appendChild(contenedor_lunes)
-        contenedor.appendChild(contenedor_martes)
-        contenedor.appendChild(contenedor_miercoles)
-        contenedor.appendChild(contenedor_jueves)
-        contenedor.appendChild(contenedor_viernes)
-        agenda.appendChild(contenedor)
-    }
-
-    // Ordenar el calendario por claves
-    const calendarioOrdenado = Array.from(calendario.keys()).sort();
-    calendarioOrdenado.forEach(clave => {
-        const semana = calendario.get(clave);
-
-        const contenedor = document.createElement('ul');
-
-        const contenedor_hora = document.createElement('li');
-        contenedor_hora.className = 'horario';
-
-        const hora = document.createElement('p');
-        hora.className = 'hora';
-        hora.textContent = clave;
-
-        contenedor_hora.appendChild(hora);
-
-        contenedor.appendChild(contenedor_hora);
-
-        semana.forEach(alumnos => {
-            const paciente = document.createElement('li');
-            paciente.classList = 'verpacientes';
-            
-            const evento = document.createElement('div');
-            evento.classList = 'evento';
-            
-            if (alumnos.length == 0) {
-                const alumno = document.createElement('a');
-                alumno.textContent = "Vacio";
-                evento.appendChild(alumno);
-            } else {
-                alumnos.forEach(nombre => {
-                    const alumno = document.createElement('a');
-                    alumno.textContent = nombre;
-                    alumno.onclick = function() {
-                        menu.monstrarAlumno(nombre);
-                    };
-                    evento.appendChild(alumno);
-                });
-            }
-            paciente.appendChild(evento);
-            contenedor.appendChild(paciente);
-        })
-
-        agenda.appendChild(contenedor);
-    })
-}
-
-
-
 //Añadir Rutina
 function habilitarBoton(checkboxId, botonId) {
     // Obtiene el checkbox y el botón por su ID
@@ -764,7 +507,7 @@ function Agregar_ejercicios(dia,nrobloque){
     }
 }
 
-function llenar_ejercicios(lista_ejercicios,dia,nrobloque){
+function llenar_ejercicios_rutina(lista_ejercicios,dia,nrobloque){
     const contenedor = document.getElementById('lista_ejercicios');
         
     lista_ejercicios.sort((a, b) => a.nombre_ejercicio.localeCompare(b.nombre_ejercicio));

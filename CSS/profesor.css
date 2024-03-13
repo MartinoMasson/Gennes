@@ -77,6 +77,20 @@ input[type="time"]::-webkit-calendar-picker-indicator {
             display: contents;
             font-size: 10px;
         }
+        .antecedentesopciones{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            
+            label{
+                margin-right: 20px;
+            }
+
+            input[type="radio"]{
+                width: auto;
+                margin-left: 20px;
+            }
+        }
     }
 
     textarea{
@@ -152,7 +166,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
             font-size: 15px;
             gap: 0 25px;
             flex-wrap: wrap;
-            border: 3px solid black;
+            border: 2px solid black;
             
             a{
                 display: flex;
@@ -170,30 +184,28 @@ input[type="time"]::-webkit-calendar-picker-indicator {
                 background: none;
                 border: none;
             }
-        }
-    }
-
-
-    .cronometro{
-        padding: 0 15px;
-        display: flex;
-        flex-wrap: wrap;
-
-        button{
-            border-radius: 15px;
-            border: none;
-        }
-        p{
-            margin: 0 10px;
-            background: black;
-            color: white;
-            padding: 5px;
-            border-radius: 15px;
-            border: 2px solid #48a855;
-        }
-        p:hover{
-            color: white;
-            text-decoration: none;
+            .cronometro{
+                padding: 0 15px;
+                display: flex;
+                flex-wrap: wrap;
+        
+                button{
+                    border-radius: 15px;
+                    border: none;
+                }
+                p{
+                    margin: 0 10px;
+                    background: black;
+                    color: white;
+                    padding: 5px;
+                    border-radius: 15px;
+                    border: 2px solid #48a855;
+                }
+                p:hover{
+                    color: white;
+                    text-decoration: none;
+                }
+            }
         }
     }
     input{

@@ -108,8 +108,21 @@
                     <input type="date" v-model="newfecha_nacimiento" id="newfecha_nacimiento" name="newedad" required>
                     <span v-show="mensaje_fecha_nacimiento">{{mensaje_newalumno_fecha_nacimiento}}</span>
                 </div>
+                <div class="input-group">
+                    <label for="radio">Antecedentes deportivos o de practidas del ejercicios <h6>(ultimos 6 meses)</h6></label>
+                    <div class="antecedentesopciones">
+                        <input type="radio" id="newantecedentes_si" name="newantecedentes_opcion" value="Si" required>
+                        <label for="Si">Si</label><br>
+                        <input type="radio" id="newantecedentes_no" name="newantecedentes_opcion" value="No" required>
+                        <label for="No">No</label><br>
+                    </div>
+                </div>
                 <div class="input-group ">
-                    <label for="textarea">Antecedentes deportivos o de practidas del ejercicios <h6>(ultimos 6 meses)</h6></label>
+                    <label for="textarea">Cuales <h6>(Responder solo si la respuesta anterior es afirmativa)</h6></label>
+                    <textarea name="Antecedentes" id="newantecedentes" cols="80" rows="5"></textarea>
+                </div>
+                <div class="input-group ">
+                    <label for="textarea">Historial clinico</label>
                     <textarea name="historialclinico" id="newhist_clinico" cols="80" rows="5"></textarea>
                 </div>
                 <div class="input-group entrenamiento">

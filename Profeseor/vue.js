@@ -51,7 +51,7 @@ const menu = createApp({
             this.verAlumno = false;
             this.verNuevaRutina =  true;
             this.verRutina = false;
-            Llenar_Calendario(this);
+            gennes_Calendario.mostrar(this);
         },
         monstrarListaAlumnos(){
             this.verAgenda = false;
@@ -97,6 +97,7 @@ const menu = createApp({
                     this.newnombre = '';
                     this.newapellido = '';
                     this.newdocumento = '';
+                    this.newfecha_nacimiento = '';
                     this.mensaje_newalumno_doc='';
                     this.mensaje_documento = false;
                 }else{
@@ -284,7 +285,7 @@ const menu = createApp({
 
     },
     mounted(){
-        Llenar_Calendario(this);
+        gennes_Calendario.mostrar(this);
         LlenarGrupoMusculares(this);
     }
 });
