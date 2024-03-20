@@ -1,113 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="./public/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gennes</title>
-    <link rel="stylesheet" href="CSS/estilo.css">
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-  </head>
-  <body>
-    <header >
-      <a class="titulo" @click="btninicio">Gennes</a>
-    </header>
-    <div id="wrapper" class="fondoinicio">
-      <div class="personas" v-if="mostrarInicio">
-        <button class="btnpersona" type="button" @click="btnloginProfe">Soy Profe</button>
-        <button class="btnpersona" type="button" @click="btnLoginAlumno">Soy Alumno</button>
-      </div>
-      <form v-if="mostrarLoginprofe" class="login_form_profe" id="loginForm_profe">
-          <h2>Iniciar sesión</h2>
-          <div class="input-group">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" placeholder="Ingrese el Email" required autocomplete="on">
-          </div>
-          <div class="input-group">
-              <label for="password">Contraseña</label>
-              <input type="password" id="password" name="password" placeholder="Contraseña" required autocomplete="on">
-          </div>
-          <a href="" class="btnregistrarse" @click="btnSignUpProfe">Registrarse</a>
-          <a class="btnpersona-login" id="ingresarprofe" href="Profeseor/profesor.html">ingresar</a>
-      </form>
-      <form v-if="mostrarSignUpprofe" class="signup_form" id="sign_upForm">
-        <h2>Registrarse</h2>
-        <div class="input-group">
-            <label for="text">Nombre Completo</label>
-            <input type="text" id="email" name="email" placeholder="Ingrese el Nombre completo" required autocomplete="on">
-        </div>
-        <div class="input-group">
-            <label for="email">Email</label>
-            <input type="email" id="sign-up-email" name="email" placeholder="Ingrese el Email" required autocomplete="on">
-        </div>
-        <div class="input-group">
-            <label for="password">Contraseña</label>
-            <input type="password" id="sign-up-password" name="password" placeholder="Contraseña" required autocomplete="on">
-        </div>
-        <div class="input-group">
-            <label for="tel">Telefono</label>
-            <input type="tel" id="sign-up-telefono" name="telefono" placeholder="Telefono"  required autocomplete="on">
-        </div>
-        <a class="btn_sign_up" id="registrarprofe" @click="btnloginProfe" href="profe.html">Registrarse</a>
-      </form>
-      <form v-if="mostrarLoginalumno" class="login_form_alumno" id="loginForm_alumno">
-        <h2>Iniciar sesión</h2>
-        <div class="input-group">
-            <label for="text">Nombre Completo</label>
-            <input type="text" id="Nombre" name="email" placeholder="Nombre Completo" required autocomplete="on">
-        </div>
-        <div class="botones_alumnos">
-            <a class='btnalumno-registrarse'>Soy nuevo</a>
-            <a class="btnalumno-login" id="ingresaralumno" type="button" href="Alumno.html">Ingresar</a>
-        </div>
-      </form>
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="./public/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gennes</title>
+  <link rel="stylesheet" href="CSS/estilo.css">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+  <header>
+    <a class="titulo" @click="btninicio">Gennes</a>
+  </header>
+  <div id="wrapper" class="fondoinicio">
+    <div class="personas" v-if="mostrarInicio">
+      <button class="btnpersona" type="button" @click="btnloginProfe">Soy Profe</button>
+      <button class="btnpersona" type="button" @click="btnLoginAlumno">Soy Alumno</button>
     </div>
+    <form v-if="mostrarLoginprofe" class="login_form_profe" id="loginForm_profe">
+      <h2>Iniciar sesión</h2>
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Ingrese el Email" required autocomplete="on">
+      </div>
+      <div class="input-group">
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" name="password" placeholder="Contraseña" required autocomplete="on">
+      </div>
+      <a href="" class="btnregistrarse" @click="btnSignUpProfe">Registrarse</a>
+      <a class="btnpersona-login" id="ingresarprofe" href="Profeseor/profesor.html">ingresar</a>
+    </form>
+    <form v-if="mostrarSignUpprofe" class="signup_form" id="sign_upForm">
+      <h2>Registrarse</h2>
+      <div class="input-group">
+        <label for="text">Nombre Completo</label>
+        <input type="text" id="email" name="email" placeholder="Ingrese el Nombre completo" required autocomplete="on">
+      </div>
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" id="sign-up-email" name="email" placeholder="Ingrese el Email" required autocomplete="on">
+      </div>
+      <div class="input-group">
+        <label for="password">Contraseña</label>
+        <input type="password" id="sign-up-password" name="password" placeholder="Contraseña" required
+          autocomplete="on">
+      </div>
+      <div class="input-group">
+        <label for="tel">Telefono</label>
+        <input type="tel" id="sign-up-telefono" name="telefono" placeholder="Telefono" required autocomplete="on">
+      </div>
+      <a class="btn_sign_up" id="registrarprofe" @click="btnloginProfe" href="profe.html">Registrarse</a>
+    </form>
+    <form v-if="mostrarLoginalumno" class="login_form_alumno" id="loginForm_alumno">
+      <h2>Iniciar sesión</h2>
+      <div class="input-group">
+        <label for="text">Nombre Completo</label>
+        <input type="text" id="Nombre" name="email" placeholder="Nombre Completo" required autocomplete="on">
+      </div>
+      <div class="botones_alumnos">
+        <a class='btnalumno-registrarse'>Soy nuevo</a>
+        <a class="btnalumno-login" id="ingresaralumno" type="button" href="Alumno.html">Ingresar</a>
+      </div>
+    </form>
+  </div>
 
-    <footer>
-        <a href="https://www.instagram.com/matu_masson/" rel="noopener" target="_blank">Martino Masson</a>
-    </footer>
+  <footer>
+    <a href="https://www.instagram.com/matu_masson/" rel="noopener" target="_blank">Martino Masson</a>
+  </footer>
 
-    <script type="module">
-        const {createApp} = Vue
-        
-        const inicio = createApp({
-          data() {
-              return {
-                mostrarInicio: true,
-                mostrarLoginprofe: false,
-                mostrarSignUpprofe: false,
-                mostrarLoginalumno: false
-              }
-          },
-          methods: {
-            btninicio(){
-              this.mostrarInicio = true;
-              this.mostrarLoginprofe = false;
-              this.mostrarSignUpprofe = false;
-              this.mostrarLoginalumno = false;
-            },
-            btnloginProfe(){
-              this.mostrarInicio = false;
-              this.mostrarLoginprofe = true;
-              this.mostrarSignUpprofe = false;
-              this.mostrarLoginalumno = false;
-            },
-            btnSignUpProfe(){
-              this.mostrarInicio = false;
-              this.mostrarLoginprofe = false;
-              this.mostrarSignUpprofe = true;
-              this.mostrarLoginalumno = false;
-              event.preventDefault();
-            },
-            btnLoginAlumno(){
-              this.mostrarInicio = false;
-              this.mostrarLoginprofe = false;
-              this.mostrarSignUpprofe = false;
-              this.mostrarLoginalumno = true;
-            }
-          }
-        });
-        inicio.mount('#wrapper');
-    </script>
-  </body>
+
+  <script type="module">
+    const { createApp } = Vue
+
+    const inicio = createApp({
+      data() {
+        return {
+          mostrarInicio: true,
+          mostrarLoginprofe: false,
+          mostrarSignUpprofe: false,
+          mostrarLoginalumno: false
+        }
+      },
+      methods: {
+        btninicio() {
+          this.mostrarInicio = true;
+          this.mostrarLoginprofe = false;
+          this.mostrarSignUpprofe = false;
+          this.mostrarLoginalumno = false;
+        },
+        btnloginProfe() {
+          this.mostrarInicio = false;
+          this.mostrarLoginprofe = true;
+          this.mostrarSignUpprofe = false;
+          this.mostrarLoginalumno = false;
+        },
+        btnSignUpProfe() {
+          this.mostrarInicio = false;
+          this.mostrarLoginprofe = false;
+          this.mostrarSignUpprofe = true;
+          this.mostrarLoginalumno = false;
+          event.preventDefault();
+        },
+        btnLoginAlumno() {
+          this.mostrarInicio = false;
+          this.mostrarLoginprofe = false;
+          this.mostrarSignUpprofe = false;
+          this.mostrarLoginalumno = true;
+        }
+      }
+    });
+    inicio.mount('#wrapper');
+  </script>
+
+  <!--autenticacion-->
+  <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
+  <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
+  <script async defer src="https://apis.google.com/js/api.js" id="gapi"></script>
+  <script async defer src="https://accounts.google.com/gsi/client" id="gis"></script>
+  <script type="text/javascript" src="Javascripts/auth.js"></script>
+</body>
+
 </html>

@@ -39,11 +39,14 @@ const menu = createApp({
             verRutina:false,
             Rutina:true,
             verNuevaRutina: false,
-            agregarejercicio_rutina:false
+            agregarejercicio_rutina:false,
+            alumno_rutina: '',
+            dni:''
         }
     },
     methods:{
         monstrarAgenda(){
+            obtener_alumno_bd()
             this.verAgenda = true;
             this.verListaAlumnos = false;
             this.verEjercicios = false;
@@ -60,6 +63,7 @@ const menu = createApp({
             this.verNuevoAlumno = false;
             this.verAlumno = false;
             this.verRutina = false;
+            obtener_alumno_bd()
             Mostrar_Alumnos(this)
         },
         monstrarEjercicios(){
@@ -69,6 +73,7 @@ const menu = createApp({
             this.verNuevoAlumno = false;
             this.verAlumno = false;
             this.verRutina = false;
+            gennes_ejercicios.Mostrar(this);
         },
         monstrarNuevoAlumno(){
             this.verAgenda = false;
@@ -146,7 +151,7 @@ const menu = createApp({
         ocultarEjercicios(){
             this.verGrupos = true;
             this.verListaEjercicios = false;
-            LlenarGrupoMusculares(this);
+            gennes_ejercicios.Mostrar(this);
         },
         mostrargrupos(){
             this.verGrupos = true;
@@ -169,7 +174,7 @@ const menu = createApp({
                 this.verListaEjercicios = false;
                 this.verAgregar = false;
                 agregarEjercicio(this)
-                LlenarGrupoMusculares(this);
+                gennes_ejercicios.Mostrar(this);
             }else{
                 if(this.mensaje_newnombre_ejercicio.trim() === ''){
                     this.mensaje_newnombre_ejercicio='Ingrese el nombre del ejercicios';
@@ -188,7 +193,10 @@ const menu = createApp({
             }
         },
         
-        mostrarRutina(){
+        mostrarRutina(dni){
+            const alumno = gennes_alumnos.obtener_Alumno(dni);
+            this.alumno_rutina = alumno.nombre, ' ', alumno.apellido
+            this.dni=dni
             this.verAgenda =  false;
             this.verListaAlumnos =  false;
             this.verEjercicios =  false;
@@ -235,14 +243,10 @@ const menu = createApp({
             const lista_ejercicios = document.createElement('div')
             lista_ejercicios.id = "ejercicios_rutina"
         
-            const btn_agregar_ejercicio = document.createElement('button')
-            btn_agregar_ejercicio.textContent = "Agregar Ejercicio"
-            btn_agregar_ejercicio.type = "button"
-            btn_agregar_ejercicio.onclick = function() {
-                this.agregarejercicio_rutina=true
-                //bloque_ejercicio=lista_ejercicios
-                //Agregar_ejercicios(dia,nrobloque.textContent);
-            }; 
+            const textarea = document.createElement('textarea')
+            textarea.classList= 'ejerciciostexarea'
+            textarea.id = 'ejercicios'
+            
         
             eliminar.onclick = function() {
                 eliminarBloque(eliminar,bloque_dia,dia,nrobloque.textContent);
@@ -259,7 +263,7 @@ const menu = createApp({
         
             inputseries.addEventListener('input', function() {
                 // Actualizar las series del bloque correspondiente cuando cambie el valor del input
-                const bloques = newrutina.Obtener_Bloques(semana);
+                const bloques = newrutina.Obtener_Bloques(dia);
                 for(let i=0;i<bloques.length;i++){
                     if(bloques[i].nro === nrobloque.textContent)
                         bloques[i].series = inputseries.value
@@ -272,13 +276,20 @@ const menu = createApp({
             contenedorbloque.appendChild(eliminar)
             contenedorbloque.appendChild(contenedorplan)
             contenedorbloque.appendChild(lista_ejercicios)
-            contenedorbloque.appendChild(btn_agregar_ejercicio)
+            contenedorbloque.appendChild(textarea)
             contenedorbloque.appendChild(labelseries)
         
             const btn_agregar_bloque = document.getElementById(btn)
             const contenedor = document.getElementById(bloque_dia)
             
             contenedor.insertBefore(contenedorbloque,btn_agregar_bloque) 
+        },
+        guardar_rutina(){
+            if(guardar_rutina(this.dni))
+                this.ocultarNuevaRutina();
+            else
+               alert('Verifique el blopque y/o las Cantidad de series')
+
         }
 
 
@@ -286,7 +297,7 @@ const menu = createApp({
     },
     mounted(){
         gennes_Calendario.mostrar(this);
-        LlenarGrupoMusculares(this);
+        gennes_ejercicios.Mostrar(this);
     }
 });
 menu.mount('#opcionesmenu');

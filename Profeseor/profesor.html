@@ -227,7 +227,9 @@
         </div>
         <div v-show="verRutina">
             <div v-show="Rutina" class="ver-rutina">
-                <button type="button" @click="mostrarNuevaRutina">Agregar Rutina</button>
+                <h3>Rutina de {{alumno_rutina}}</h3>
+                <div id="ver_rutina"></div>
+                <button type="button" class="btnagregar_rutina" @click="mostrarNuevaRutina">Agregar Rutina</button>
             </div>
             <div class="nueva_rutina" v-show="verNuevaRutina" id="nueva_rutina">
                 <h2>Nueva Rutina</h2>
@@ -259,7 +261,7 @@
                             <button type="button" id="botonViernes" @click="agregarbloque('bloque_viernes','botonViernes',5)" disabled>Agregar Bloque</button>
                         </div>
                     </div>
-                    <button type="button" class="guardar_rutina" @click="ocultarNuevaRutina">Gruardar Rutina</button>
+                    <button type="button" class="guardar_rutina" @click="guardar_rutina">Gruardar Rutina</button>
                 </form>
             </div>
             <div v-show="agregarejercicio_rutina" class="agregarejercicios" id="nuevo_ejercicios">
@@ -279,7 +281,12 @@
         <a href="https://www.instagram.com/matu_masson/"  rel="noopener" target="_blank">Martino Masson</a>
     </footer>
 
-    
+    <!--autenticacion-->
+    <script async defer src="https://apis.google.com/js/api.js" id="gapi"></script>
+    <script async defer src="https://accounts.google.com/gsi/client" id="gis"></script>
+    <script type="text/javascript" src="../Javascripts/auth.js"></script>
+        
+
     <script src="../Modells/modelos.js"></script>
     <script src="profesor.js"></script>
 </body>
