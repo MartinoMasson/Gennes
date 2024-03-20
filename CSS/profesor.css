@@ -737,7 +737,9 @@ input[type="time"]::-webkit-calendar-picker-indicator {
         div {
             display: flex;
             flex-direction: column;
-
+            width: 20%;
+            gap: 0;
+            
             button {
                 border-radius: 15px;
                 padding: 10px;
@@ -752,29 +754,36 @@ input[type="time"]::-webkit-calendar-picker-indicator {
             button:hover {
                 background-color: #a84849;
             }
-        }
+            input{
+                border-radius: 5px;
+                padding: 5px;
+                width: 15%;
+                outline: none;
+                border: none;
+            }
 
-        .ejerciciostexarea {
-            border: 2px solid white;
-            border-radius: 5px;
-            outline: none;
-            padding: 5px;
-            width: 90%;
-            height: 100px;
-            resize: none;
-            background-color: #252525cc;
-            color: white;
+            .ejerciciostexarea {
+                border: 2px solid white;
+                border-radius: 5px;
+                outline: none;
+                padding: 5px;
+                width: 90%;
+                height: 100px;
+                resize: none;
+                background-color: #252525cc;
+                color: white;
+            }
+            div{
+                width: 100%;
+            }
         }
-    }
-
-    label {
-        margin-bottom: 15px;
     }
 
     .eliminar {
         display: flex;
         justify-content: end;
         cursor: pointer;
+        font-size: 25px;
     }
 
     .guardar_rutina {
